@@ -12,17 +12,37 @@ class LocationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var voteButton: UIButton!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    @IBAction func voteButtonTapped(_ sender: Any) {
+    @IBOutlet weak var rankLabel: UILabel!
+    
+  
+    var locations: [Location] = []
+    var location: Location? {
+        didSet {
+            updateViews()
+        }
     }
     
+    
+    var count = 1
+    let locationController = LocationController()
+    
+//    let LUVC = LocationsUpvoteViewController()
+  
+    @IBAction func voteButtonTapped(_ sender: Any) {
+        //count = count + 1
+        location?.rank += 1
+        rankLabel.text = "\(location?.rank ?? 1)"
+
+        print(locations)
+    }
+    
+    
+    
+    
+    private func updateViews() {
+        guard let location = location else { return }
+        
+        locationNameLabel.text = location.name
+        
+    }
 }
